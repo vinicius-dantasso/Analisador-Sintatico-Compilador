@@ -55,13 +55,18 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     RESERVED_WORD = 258,           /* RESERVED_WORD  */
-    CLASS = 259,                   /* CLASS  */
-    INDIVIDUAL = 260,              /* INDIVIDUAL  */
-    RELOP = 261,                   /* RELOP  */
-    NUM = 262,                     /* NUM  */
-    PROPERTIE = 263,               /* PROPERTIE  */
-    DATA_TYPE = 264,               /* DATA_TYPE  */
-    NOT_VALID = 265                /* NOT_VALID  */
+    IDCLASS = 259,                 /* IDCLASS  */
+    CLASS = 260,                   /* CLASS  */
+    EQUIVALENTTO = 261,            /* EQUIVALENTTO  */
+    SUBCLASSOF = 262,              /* SUBCLASSOF  */
+    DISJOINTCLASSES = 263,         /* DISJOINTCLASSES  */
+    IDINDIVIDUALS = 264,           /* IDINDIVIDUALS  */
+    INDIVIDUALS = 265,             /* INDIVIDUALS  */
+    RELOP = 266,                   /* RELOP  */
+    NUM = 267,                     /* NUM  */
+    PROPERTIE = 268,               /* PROPERTIE  */
+    DATA_TYPE = 269,               /* DATA_TYPE  */
+    NOT_VALID = 270                /* NOT_VALID  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif

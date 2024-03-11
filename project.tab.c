@@ -109,16 +109,21 @@ enum yysymbol_kind_t
   YYSYMBOL_YYerror = 1,                    /* error  */
   YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
   YYSYMBOL_RESERVED_WORD = 3,              /* RESERVED_WORD  */
-  YYSYMBOL_CLASS = 4,                      /* CLASS  */
-  YYSYMBOL_INDIVIDUAL = 5,                 /* INDIVIDUAL  */
-  YYSYMBOL_RELOP = 6,                      /* RELOP  */
-  YYSYMBOL_NUM = 7,                        /* NUM  */
-  YYSYMBOL_PROPERTIE = 8,                  /* PROPERTIE  */
-  YYSYMBOL_DATA_TYPE = 9,                  /* DATA_TYPE  */
-  YYSYMBOL_NOT_VALID = 10,                 /* NOT_VALID  */
-  YYSYMBOL_11_n_ = 11,                     /* '\n'  */
-  YYSYMBOL_YYACCEPT = 12,                  /* $accept  */
-  YYSYMBOL_teste = 13                      /* teste  */
+  YYSYMBOL_IDCLASS = 4,                    /* IDCLASS  */
+  YYSYMBOL_CLASS = 5,                      /* CLASS  */
+  YYSYMBOL_EQUIVALENTTO = 6,               /* EQUIVALENTTO  */
+  YYSYMBOL_SUBCLASSOF = 7,                 /* SUBCLASSOF  */
+  YYSYMBOL_DISJOINTCLASSES = 8,            /* DISJOINTCLASSES  */
+  YYSYMBOL_IDINDIVIDUALS = 9,              /* IDINDIVIDUALS  */
+  YYSYMBOL_INDIVIDUALS = 10,               /* INDIVIDUALS  */
+  YYSYMBOL_RELOP = 11,                     /* RELOP  */
+  YYSYMBOL_NUM = 12,                       /* NUM  */
+  YYSYMBOL_PROPERTIE = 13,                 /* PROPERTIE  */
+  YYSYMBOL_DATA_TYPE = 14,                 /* DATA_TYPE  */
+  YYSYMBOL_NOT_VALID = 15,                 /* NOT_VALID  */
+  YYSYMBOL_16_n_ = 16,                     /* '\n'  */
+  YYSYMBOL_YYACCEPT = 17,                  /* $accept  */
+  YYSYMBOL_teste = 18                      /* teste  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -449,7 +454,7 @@ union yyalloc
 #define YYLAST   1
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  12
+#define YYNTOKENS  17
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
@@ -458,7 +463,7 @@ union yyalloc
 #define YYNSTATES  4
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   265
+#define YYMAXUTOK   270
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -473,7 +478,7 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      11,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      16,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -498,14 +503,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    15,    15
+       0,    16,    16
 };
 #endif
 
@@ -522,7 +528,8 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "RESERVED_WORD",
-  "CLASS", "INDIVIDUAL", "RELOP", "NUM", "PROPERTIE", "DATA_TYPE",
+  "IDCLASS", "CLASS", "EQUIVALENTTO", "SUBCLASSOF", "DISJOINTCLASSES",
+  "IDINDIVIDUALS", "INDIVIDUALS", "RELOP", "NUM", "PROPERTIE", "DATA_TYPE",
   "NOT_VALID", "'\\n'", "$accept", "teste", YY_NULLPTR
 };
 
@@ -533,7 +540,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-12)
+#define YYPACT_NINF (-17)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -547,7 +554,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -11,   -12,     1,   -12
+     -16,   -17,     1,   -17
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -561,7 +568,7 @@ static const yytype_int8 yydefact[] =
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -12,   -12
+     -17,   -17
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -580,20 +587,20 @@ static const yytype_int8 yytable[] =
 
 static const yytype_int8 yycheck[] =
 {
-      11,     0
+      16,     0
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    11,    13,     0
+       0,    16,    18,     0
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    12,    13
+       0,    17,    18
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1063,13 +1070,13 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* teste: '\n'  */
-#line 15 "project.y"
+#line 16 "project.y"
             {cout << "só um teste";}
-#line 1069 "project.tab.c"
+#line 1076 "project.tab.c"
     break;
 
 
-#line 1073 "project.tab.c"
+#line 1080 "project.tab.c"
 
       default: break;
     }
@@ -1262,7 +1269,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 18 "project.y"
+#line 19 "project.y"
 
 
 /* definido pelo analisador léxico */
