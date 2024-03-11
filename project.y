@@ -9,27 +9,29 @@ void yyerror(const char *);
 %}
 
 %token RESERVED_WORD IDCLASS CLASS EQUIVALENTTO SUBCLASSOF DISJOINTCLASSES IDINDIVIDUALS
-%token INDIVIDUALS RELOP NUM PROPERTIE DATA_TYPE NOT_VALID
+%token INDIVIDUALS RELOP NUM PROPERTIE_IS PROPERTIE_HAS PROPERTIE DATA_TYPE NOT_VALID
 
 %%
 
 // Classe Primitiva
-classes: classePrim
-	   | classeDef
-	   | classeAxio
-	   | classeDesc
-	   | classeEnum
-	   | classeCob
-	   ;
+class: CLASS IDCLASS { cout << "Classe definida\n"; }
+	 ;
 
-classePrim: class subclassof
-	;
-class: CLASS IDCLASS
-	;
-subclassof: SUBCLASSOF PROPERTIE RESERVED_WORD IDCLASS
-	;
+subClassOf: SUBCLASSOF PROPERTIE_HAS RESERVED_WORD IDCLASS { cout << "Subclasse definida\n"; }
+		| SUBCLASSOF PROPERTIE_HAS RESERVED_WORD DATA_TYPE
+		;
 
+subClass_list: propertie RESERVED_WORD IDCLASS ',' subClass_list
+			 | propertie RESERVED_WORD DATA_TYPE ',' subClass_list
+			 | propertie RESERVED_WORD IDCLASS
+			 | propertie RESERVED_WORD DATA_TYPE
+			 ;
+			 
 
+propertie: PROPERTIE_HAS
+		 | PROPERTIE_IS
+		 | PROPERTIE
+		 ;
 
 %%
 

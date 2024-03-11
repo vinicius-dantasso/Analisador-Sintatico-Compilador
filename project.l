@@ -57,20 +57,19 @@ DisjointClasses:    return DISJOINTCLASSES;
 "<>"		        return RELOP;              
 ">"		            return RELOP;             
 ">="		        return RELOP;             
- "["                return RELOP;             
- "]"                return RELOP;             
- "{"                return RELOP;             
- "}"                return RELOP;             
- "("                return RELOP;             
- ")"                return RELOP;             
- ","                return RELOP;             
-{propIs}            return PROPERTIE;         
-{propHas}           return PROPERTIE;         
+"["                 return RELOP;             
+"]"                 return RELOP;             
+"{"                 return RELOP;             
+"}"                 return RELOP;             
+"("                 return RELOP;             
+")"                 return RELOP;             
+","                 return RELOP;             
+{propIs}            return PROPERTIE_IS;      
+{propHas}           return PROPERTIE_HAS;         
 {propertie}         return PROPERTIE;         
 {dataType}          return DATA_TYPE;         
 {idClasse}          return IDCLASS;            
 {idIndividual}      return IDINDIVIDUALS;     
-. ;
 %%
 
 // nenhuma função auxiliar é necessária

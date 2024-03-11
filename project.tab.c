@@ -118,11 +118,13 @@ enum yysymbol_kind_t
   YYSYMBOL_INDIVIDUALS = 10,               /* INDIVIDUALS  */
   YYSYMBOL_RELOP = 11,                     /* RELOP  */
   YYSYMBOL_NUM = 12,                       /* NUM  */
-  YYSYMBOL_PROPERTIE = 13,                 /* PROPERTIE  */
-  YYSYMBOL_DATA_TYPE = 14,                 /* DATA_TYPE  */
-  YYSYMBOL_NOT_VALID = 15,                 /* NOT_VALID  */
-  YYSYMBOL_YYACCEPT = 16,                  /* $accept  */
-  YYSYMBOL_class = 17                      /* class  */
+  YYSYMBOL_PROPERTIE_IS = 13,              /* PROPERTIE_IS  */
+  YYSYMBOL_PROPERTIE_HAS = 14,             /* PROPERTIE_HAS  */
+  YYSYMBOL_PROPERTIE = 15,                 /* PROPERTIE  */
+  YYSYMBOL_DATA_TYPE = 16,                 /* DATA_TYPE  */
+  YYSYMBOL_NOT_VALID = 17,                 /* NOT_VALID  */
+  YYSYMBOL_YYACCEPT = 18,                  /* $accept  */
+  YYSYMBOL_class = 19                      /* class  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -453,7 +455,7 @@ union yyalloc
 #define YYLAST   2
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  16
+#define YYNTOKENS  18
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
@@ -462,7 +464,7 @@ union yyalloc
 #define YYNSTATES  5
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   270
+#define YYMAXUTOK   272
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -503,14 +505,14 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15
+      15,    16,    17
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    18,    18
+       0,    17,    17
 };
 #endif
 
@@ -528,8 +530,9 @@ static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "RESERVED_WORD",
   "IDCLASS", "CLASS", "EQUIVALENTTO", "SUBCLASSOF", "DISJOINTCLASSES",
-  "IDINDIVIDUALS", "INDIVIDUALS", "RELOP", "NUM", "PROPERTIE", "DATA_TYPE",
-  "NOT_VALID", "$accept", "class", YY_NULLPTR
+  "IDINDIVIDUALS", "INDIVIDUALS", "RELOP", "NUM", "PROPERTIE_IS",
+  "PROPERTIE_HAS", "PROPERTIE", "DATA_TYPE", "NOT_VALID", "$accept",
+  "class", YY_NULLPTR
 };
 
 static const char *
@@ -593,13 +596,13 @@ static const yytype_int8 yycheck[] =
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     5,    17,     4,     0
+       0,     5,    19,     4,     0
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    16,    17
+       0,    18,    19
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1069,13 +1072,13 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* class: CLASS IDCLASS  */
-#line 18 "project.y"
+#line 17 "project.y"
                      { cout << "Classe definida\n"; }
-#line 1075 "project.tab.c"
+#line 1078 "project.tab.c"
     break;
 
 
-#line 1079 "project.tab.c"
+#line 1082 "project.tab.c"
 
       default: break;
     }
@@ -1268,7 +1271,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 21 "project.y"
+#line 25 "project.y"
 
 
 /* definido pelo analisador léxico */

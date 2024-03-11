@@ -64,9 +64,11 @@ extern int yydebug;
     INDIVIDUALS = 265,             /* INDIVIDUALS  */
     RELOP = 266,                   /* RELOP  */
     NUM = 267,                     /* NUM  */
-    PROPERTIE = 268,               /* PROPERTIE  */
-    DATA_TYPE = 269,               /* DATA_TYPE  */
-    NOT_VALID = 270                /* NOT_VALID  */
+    PROPERTIE_IS = 268,            /* PROPERTIE_IS  */
+    PROPERTIE_HAS = 269,           /* PROPERTIE_HAS  */
+    PROPERTIE = 270,               /* PROPERTIE  */
+    DATA_TYPE = 271,               /* DATA_TYPE  */
+    NOT_VALID = 272                /* NOT_VALID  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
