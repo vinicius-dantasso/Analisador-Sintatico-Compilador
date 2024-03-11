@@ -13,8 +13,23 @@ void yyerror(const char *);
 
 %%
 
-teste: '\n' {cout << "só um teste";}
+// Classe Primitiva
+classes: classePrim
+	   | classeDef
+	   | classeAxio
+	   | classeDesc
+	   | classeEnum
+	   | classeCob
+	   ;
+
+classePrim: class subclassof
 	;
+class: CLASS IDCLASS
+	;
+subclassof: SUBCLASSOF PROPERTIE RESERVED_WORD IDCLASS
+	;
+
+
 
 %%
 

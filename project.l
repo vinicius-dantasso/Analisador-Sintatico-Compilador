@@ -7,21 +7,13 @@
 using namespace std;
 
 #include "project.tab.h"
-#define CONSULTA 0;
-
-unordered_map<string,int> tabela;
-int estado;
-
-int inserir(int tipo, string palavra);
-int buscar(string palavra);
-int podeInserir(string palavra);
 
 %}
 
 %option yylineno
 %option noyywrap
 
-delim	[ \t]
+delim	[ \t\n]
 brancos {delim}+
 letterMa [A-Z]+
 letterMi [a-z]+
@@ -41,99 +33,44 @@ dataType {letterMi}({colon})({letter})
 
 
 %%
-\n estado = 0;
-
-{brancos}	; // nenhuma ação e nenhum retorno
-some                estado = RESERVED_WORD;     {podeInserir(yytext);};
-all                 estado = RESERVED_WORD;     {podeInserir(yytext);};
-value               estado = RESERVED_WORD;     {podeInserir(yytext);};
-min                 estado = RESERVED_WORD;     {podeInserir(yytext);};
-max                 estado = RESERVED_WORD;     {podeInserir(yytext);};
-exactly             estado = RESERVED_WORD;     {podeInserir(yytext);};
-that                estado = RESERVED_WORD;     {podeInserir(yytext);};
-not                 estado = RESERVED_WORD;     {podeInserir(yytext);};
-and                 estado = RESERVED_WORD;     {podeInserir(yytext);};
-or                  estado = RESERVED_WORD;     {podeInserir(yytext);};
-only                estado = RESERVED_WORD;     {podeInserir(yytext);};
-Class:              estado = CLASS;             {podeInserir(yytext);};
-EquivalentTo:       estado = EQUIVALENTTO;      {podeInserir(yytext);};
-Individuals:        estado = INDIVIDUALS;       {podeInserir(yytext);};
-SubClassOf:         estado = SUBCLASSOF;        {podeInserir(yytext);};
-DisjointClasses:    estado = DISJOINTCLASSES;   {podeInserir(yytext);};
-{digito}	        estado = NUM;               {podeInserir(yytext);}; 
-"<"		            estado = RELOP;             {podeInserir(yytext);}; 
-"<="		        estado = RELOP;             {podeInserir(yytext);}; 
-"="		            estado = RELOP;             {podeInserir(yytext);}; 
-"<>"		        estado = RELOP;             {podeInserir(yytext);}; 
-">"		            estado = RELOP;             {podeInserir(yytext);};
-">="		        estado = RELOP;             {podeInserir(yytext);};
- "["                estado = RELOP;             {podeInserir(yytext);};
- "]"                estado = RELOP;             {podeInserir(yytext);};
- "{"                estado = RELOP;             {podeInserir(yytext);};
- "}"                estado = RELOP;             {podeInserir(yytext);};
- "("                estado = RELOP;             {podeInserir(yytext);};
- ")"                estado = RELOP;             {podeInserir(yytext);};
- ","                estado = RELOP;             {podeInserir(yytext);};
-{propIs}            estado = PROPERTIE;         {podeInserir(yytext);};
-{propHas}           estado = PROPERTIE;         {podeInserir(yytext);};
-{propertie}         estado = PROPERTIE;         {podeInserir(yytext);};
-{dataType}          estado = DATA_TYPE;         {podeInserir(yytext);};
-{idClasse}          estado = IDCLASS;           {podeInserir(yytext);}; 
-{idIndividual}      estado = IDINDIVIDUALS;     {podeInserir(yytext);};
+{brancos}	        ; // nenhuma ação e nenhum retorno
+some                return RESERVED_WORD;     
+all                 return RESERVED_WORD;     
+value               return RESERVED_WORD;     
+min                 return RESERVED_WORD;     
+max                 return RESERVED_WORD;     
+exactly             return RESERVED_WORD;     
+that                return RESERVED_WORD;     
+not                 return RESERVED_WORD;     
+and                 return RESERVED_WORD;     
+or                  return RESERVED_WORD;     
+only                return RESERVED_WORD;     
+Class:              return CLASS;             
+EquivalentTo:       return EQUIVALENTTO;      
+Individuals:        return INDIVIDUALS;       
+SubClassOf:         return SUBCLASSOF;        
+DisjointClasses:    return DISJOINTCLASSES;   
+{digito}	        return NUM;                
+"<"		            return RELOP;              
+"<="		        return RELOP;              
+"="		            return RELOP;              
+"<>"		        return RELOP;              
+">"		            return RELOP;             
+">="		        return RELOP;             
+ "["                return RELOP;             
+ "]"                return RELOP;             
+ "{"                return RELOP;             
+ "}"                return RELOP;             
+ "("                return RELOP;             
+ ")"                return RELOP;             
+ ","                return RELOP;             
+{propIs}            return PROPERTIE;         
+{propHas}           return PROPERTIE;         
+{propertie}         return PROPERTIE;         
+{dataType}          return DATA_TYPE;         
+{idClasse}          return IDCLASS;            
+{idIndividual}      return IDINDIVIDUALS;     
+. ;
 %%
-
-int inserir(int tipo, string palavra) {
-
-    if(buscar(palavra) != 0) {
-        cout << "atenção: " << palavra << " já definido\n";
-        return 0;
-    }
-
-    tabela.insert({palavra, tipo});
-
-    return 1;
-
-}
-
-int buscar(string palavra) {
-
-    auto pos = tabela.find(palavra);
-
-    if(pos == tabela.end()) {
-        return 0;
-    }
-
-    return pos->second;
-
-}
-
-int podeInserir(string palavra) {
-
-    if(estado != 0) {
-        inserir(estado, palavra);
-    }
-    else {
-
-        switch(buscar(palavra)) {
-
-            case RESERVED_WORD:     return RESERVED_WORD;
-            case RELOP:             return RELOP;
-            case PROPERTIE:         return PROPERTIE;
-            case IDCLASS:           return IDCLASS;
-            case CLASS:             return CLASS;
-            case EQUIVALENTTO:      return EQUIVALENTTO;
-            case SUBCLASSOF:        return SUBCLASSOF;
-            case DISJOINTCLASSES:   return DISJOINTCLASSES;
-            case IDINDIVIDUALS:     return IDINDIVIDUALS;
-            case INDIVIDUALS:       return INDIVIDUALS;
-            case DATA_TYPE:         return DATA_TYPE;
-            case NUM:               return NUM;
-            default: cout << "Erro léxico: \"" << palavra << "\" não reconhecido\n";
-
-        }
-
-    }
-
-}
 
 // nenhuma função auxiliar é necessária

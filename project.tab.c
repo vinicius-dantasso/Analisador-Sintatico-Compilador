@@ -121,9 +121,8 @@ enum yysymbol_kind_t
   YYSYMBOL_PROPERTIE = 13,                 /* PROPERTIE  */
   YYSYMBOL_DATA_TYPE = 14,                 /* DATA_TYPE  */
   YYSYMBOL_NOT_VALID = 15,                 /* NOT_VALID  */
-  YYSYMBOL_16_n_ = 16,                     /* '\n'  */
-  YYSYMBOL_YYACCEPT = 17,                  /* $accept  */
-  YYSYMBOL_teste = 18                      /* teste  */
+  YYSYMBOL_YYACCEPT = 16,                  /* $accept  */
+  YYSYMBOL_class = 17                      /* class  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -449,18 +448,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  3
+#define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   1
+#define YYLAST   2
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  17
+#define YYNTOKENS  16
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  2
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  4
+#define YYNSTATES  5
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   270
@@ -478,7 +477,7 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      16,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -511,7 +510,7 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    16,    16
+       0,    18,    18
 };
 #endif
 
@@ -530,7 +529,7 @@ static const char *const yytname[] =
   "\"end of file\"", "error", "\"invalid token\"", "RESERVED_WORD",
   "IDCLASS", "CLASS", "EQUIVALENTTO", "SUBCLASSOF", "DISJOINTCLASSES",
   "IDINDIVIDUALS", "INDIVIDUALS", "RELOP", "NUM", "PROPERTIE", "DATA_TYPE",
-  "NOT_VALID", "'\\n'", "$accept", "teste", YY_NULLPTR
+  "NOT_VALID", "$accept", "class", YY_NULLPTR
 };
 
 static const char *
@@ -540,7 +539,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-17)
+#define YYPACT_NINF (-6)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -554,7 +553,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -16,   -17,     1,   -17
+      -5,    -3,     2,    -6,    -6
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -562,13 +561,13 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     2,     0,     1
+       0,     0,     0,     2,     1
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -17,   -17
+      -6,    -6
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -582,31 +581,31 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     3
+       1,     3,     4
 };
 
 static const yytype_int8 yycheck[] =
 {
-      16,     0
+       5,     4,     0
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    16,    18,     0
+       0,     5,    17,     4,     0
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    17,    18
+       0,    16,    17
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1
+       0,     2,     2
 };
 
 
@@ -1069,14 +1068,14 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* teste: '\n'  */
-#line 16 "project.y"
-            {cout << "só um teste";}
-#line 1076 "project.tab.c"
+  case 2: /* class: CLASS IDCLASS  */
+#line 18 "project.y"
+                     { cout << "Classe definida\n"; }
+#line 1075 "project.tab.c"
     break;
 
 
-#line 1080 "project.tab.c"
+#line 1079 "project.tab.c"
 
       default: break;
     }
@@ -1269,7 +1268,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 19 "project.y"
+#line 21 "project.y"
 
 
 /* definido pelo analisador léxico */
