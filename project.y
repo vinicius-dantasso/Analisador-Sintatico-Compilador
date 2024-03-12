@@ -14,25 +14,49 @@ void yyerror(const char *);
 %%
 
 // Classe Primitiva
-class: CLASS IDCLASS { cout << "Classe definida\n"; }
-	 ;
 
-subClassOf: SUBCLASSOF PROPERTIE_HAS RESERVED_WORD IDCLASS { cout << "Subclasse definida\n"; }
-		| SUBCLASSOF PROPERTIE_HAS RESERVED_WORD DATA_TYPE
+classes: classPri { cout << "Classe definida\n"; }
+		/*| classDef
+		|	classAxi
+		| classDesc
+		| classEnum
+		| classCober*/
 		;
 
-subClass_list: propertie RESERVED_WORD IDCLASS ',' subClass_list
-			 | propertie RESERVED_WORD DATA_TYPE ',' subClass_list
-			 | propertie RESERVED_WORD IDCLASS
-			 | propertie RESERVED_WORD DATA_TYPE
-			 ;
-			 
+ 
+classPri: class subClassOf{ cout << "Classe primitiva definida\n"; }
+				| class subClassOf disjointClasses
+	 ;
+
+class: CLASS IDCLASS
+subClassOf: SUBCLASSOF subClass_list { cout << "Subclasse definida\n"; }
+        ;
+
+subClass_list: propertie RESERVED_WORD IDCLASS RELOP subClass_list
+             | propertie RESERVED_WORD DATA_TYPE RELOP subClass_list
+             | propertie RESERVED_WORD IDCLASS
+             | propertie RESERVED_WORD DATA_TYPE
+             ;
+
 
 propertie: PROPERTIE_HAS
-		 | PROPERTIE_IS
-		 | PROPERTIE
-		 ;
+         | PROPERTIE_IS
+         | PROPERTIE
+         ;
 
+disjointClasses: DISJOINTCLASSES disjointClasses_list { cout << "Disjoint definida\n"; }
+							 ;
+
+disjointClasses_list: disjointClasses_list RELOP IDCLASS
+										| IDCLASS
+										;
+
+individuals: INDIVIDUALS individuals_list
+						;
+
+individuals_list: individuals_list RELOP IDINDIVIDUALS
+								| IDINDIVIDUALS
+								;
 %%
 
 /* definido pelo analisador léxico */
