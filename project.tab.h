@@ -67,8 +67,7 @@ extern int yydebug;
     PROPERTIE_IS = 268,            /* PROPERTIE_IS  */
     PROPERTIE_HAS = 269,           /* PROPERTIE_HAS  */
     PROPERTIE = 270,               /* PROPERTIE  */
-    DATA_TYPE = 271,               /* DATA_TYPE  */
-    NOT_VALID = 272                /* NOT_VALID  */
+    DATA_TYPE = 271                /* DATA_TYPE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
