@@ -1,12 +1,4 @@
-Class: Pizza
+Class: HighCaloriePizza
 
-SubClassOf:
-hasBase some PizzaBase,
-hasCaloricContent some xsd:integer
-
-DisjointClasses:
-Pizza, PizzaBase, PizzaTopping
-
-Individuals:
-CustomPizza1,
-CustomPizza2
+EquivalentTo:
+Pizza and (hasCaloricContent some xsd:integer[>= 400])

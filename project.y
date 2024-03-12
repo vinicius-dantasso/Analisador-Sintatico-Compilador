@@ -15,8 +15,9 @@ void yyerror(const char *);
 
 // Classe Primitiva
 
-classes: classPri { cout << "Classe definida\n"; }
-		/*| classDef
+classes: classPri { cout << "Classe primitiva definida\n"; }
+			 | classDef { cout << "Classe Definida definida\n"; }
+		/*| 
 		|	classAxi
 		| classDesc
 		| classEnum
@@ -24,11 +25,21 @@ classes: classPri { cout << "Classe definida\n"; }
 		;
 
  
-classPri: class subClassOf{ cout << "Classe primitiva definida\n"; }
-				| class subClassOf disjointClasses
-	 ;
+classPri: class subClassOf
+				| class subClassOf disjointClasses 
+				| class subClassOf individuals
+				| class subClassOf disjointClasses individuals 
+	 			;
 
+classDef: class equivalentTo individuals
+				| class equivalentTo
+				;
+
+equivalentTo: EQUIVALENTTO IDCLASS RESERVED_WORD RELOP PROPERTIE_HAS RESERVED_WORD IDCLASS RELOP
+						| EQUIVALENTTO IDCLASS RESERVED_WORD RELOP PROPERTIE_HAS RESERVED_WORD DATA_TYPE RELOP RELOP NUM RELOP RELOP
+						;
 class: CLASS IDCLASS
+		 ;
 subClassOf: SUBCLASSOF subClass_list { cout << "Subclasse definida\n"; }
         ;
 
