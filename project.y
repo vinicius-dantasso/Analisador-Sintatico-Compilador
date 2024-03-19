@@ -13,37 +13,37 @@ void yyerror(const char *);
 
 %%
 
-classes: classPri 	{ cout << "Classe Primitiva válida\n"; }
-	   | classDef 	{ cout << "Classe Definida válida\n"; }
-	   | classAxi 	{ cout << "Classe com Axioma válida\n"; }
-	   //| classDesc
-	   | classEnum 	{ cout << "Classe Enumerada válida\n"; }
-       | classCober { cout << "Classe Coberta válida\n"; }
+classes: classPri classes 		
+	   | classDefAnin classes 
+	   | classAxi classes 		
+	   | classEnum classes 		
+       | classCober classes 	
+	   | 
 	   ;
 
 
 // Classe Primitiva
-classPri: class subClassOf
-		| class subClassOf disjointClasses 
-		| class subClassOf individuals
-		| class subClassOf disjointClasses individuals 
+classPri: class subClassOf { cout << "Classe Primitiva válida\n"; }
+		| class subClassOf disjointClasses { cout << "Classe Primitiva válida\n"; }
+		| class subClassOf individuals { cout << "Classe Primitiva válida\n"; }
+		| class subClassOf disjointClasses individuals { cout << "Classe Primitiva válida\n"; }
 	 	;
 
-// Classe Definida
-classDef: class equivalentTo individuals
-		| class equivalentTo
-		;
+// Classe Definida/Aninhada
+classDefAnin: class equivalentTo individuals
+			| class equivalentTo
+			;
 
 // Classe com Axioma Fechado
-classAxi: class subClassOf_Axi
+classAxi: class subClassOf_Axi { cout << "Classe com Axioma válida\n"; }
 		;
 	
 // Classe Enumerada
-classEnum: class equivalentToEnum
+classEnum: class equivalentToEnum { cout << "Classe Enumerada válida\n"; }
 		 ;
 
 // Classe Coberta
-classCober: class equivalentToCober
+classCober: class equivalentToCober { cout << "Classe Coberta válida\n"; }
 		  ;
 
 // Define uma Class: Pizza
@@ -71,9 +71,20 @@ subClass_AxiList: IDCLASS RELOP propertie RESERVED_WORD IDCLASS RELOP propertie 
 				;
 
 // EquivalentTo para requisitos gerais
-equivalentTo: EQUIVALENTTO IDCLASS RESERVED_WORD RELOP PROPERTIE_HAS RESERVED_WORD IDCLASS RELOP
-			| EQUIVALENTTO IDCLASS RESERVED_WORD RELOP PROPERTIE_HAS RESERVED_WORD DATA_TYPE RELOP RELOP NUM RELOP RELOP
+equivalentTo: equivalent IDCLASS RELOP { cout << "Classe Definida válida\n"; }
+			| equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP { cout << "Classe Definida válida\n"; }
+			| equivalent descAnin { cout << "Classe Aninhada válida\n"; }
 			;
+
+equivalent: EQUIVALENTTO IDCLASS RESERVED_WORD RELOP PROPERTIE_HAS RESERVED_WORD
+		  ;
+
+descAnin: RELOP propertie RESERVED_WORD IDINDIVIDUALS RELOP RELOP descAnin2
+		;
+
+descAnin2: RESERVED_WORD RELOP propertie RESERVED_WORD RELOP propertie RESERVED_WORD IDINDIVIDUALS RELOP RELOP descAnin2
+		 |
+		 ;
 
 // EquivalentTo especifico para determinar uma classe coberta
 equivalentToCober: EQUIVALENTTO cober_list
@@ -89,8 +100,8 @@ equivalentToEnum: EQUIVALENTTO RELOP enum_list
 				;
 
 // Diferentes formas que um equivalentTo para a Classe Enumerada pode se organizar
-enum_list: IDCLASS RELOP enum_list
-		 | IDCLASS RELOP
+enum_list: IDINDIVIDUALS RELOP enum_list
+		 | IDINDIVIDUALS RELOP
 		 ;
 
 // Define uma DisjointClass

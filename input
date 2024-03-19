@@ -1,3 +1,8 @@
-Class: Spiciness
+Class: SpicyPizza
 
-EquivalentTo: Hot or Medium
+EquivalentTo:
+Pizza
+and (hasTopping some (hasSpiciness value Hot1))
+and (hasTopping some (hasSpiciness value Hot2))
+and (hasTopping some (hasSpiciness value Hot3))
+and (hasTopping some (hasSpiciness value Hot4))

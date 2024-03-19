@@ -1,9 +1,6 @@
 %{
-
 // Reconhecedor de uma linguagem simplificada
 #include <iostream>
-#include <string>
-#include <unordered_map>
 using namespace std;
 
 #include "project.tab.h"
