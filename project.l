@@ -47,6 +47,7 @@ EquivalentTo:       return EQUIVALENTTO;
 Individuals:        return INDIVIDUALS;       
 SubClassOf:         return SUBCLASSOF;        
 DisjointClasses:    return DISJOINTCLASSES;   
+DisjointWith:       return DISJOINTCLASSES;
 {digito}	        return NUM;                
 "<"		            return RELOP;              
 "<="		        return RELOP;              

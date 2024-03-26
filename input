@@ -1,3 +1,86 @@
+Class: Activity
+   
+    SubClassOf: 
+        FunctionalComplex,
+        participatedIn some DataExchange
+    
+    
+Class: Actor
+  
+    SubClassOf: 
+        FunctionalComplex,
+        participatedIn some DataExchange
+    
+    
+Class: BrokerServiceProvider
+
+        
+    SubClassOf: 
+        IntermediaryParticipant,
+        mediates some MetadataAssignment,
+        mediates some MetadataRetrival
+    
+    
+Class: Certificate
+    
+    SubClassOf: 
+        Resource,
+        mediates some CertificationAct
+    
+    
+Class: Certification
+
+        
+    SubClassOf: 
+        Activity,
+        historicallyDependsOn only CertificationAct,
+        historicallyDependsOn exactly 1 CertificationAct
+    
+    
+Class: CertificationAct
+
+        
+    EquivalentTo: 
+        Relator
+         and (historicallyDependsOn only EvaluationReport)
+         and (mediates only (Certificate or CertificationBody or Evaluated))
+         and (mediates min 1 Certificate)
+         and (mediates min 1 CertificationBody)
+         and (mediates min 1 Evaluated)
+         and (historicallyDependsOn min 1 Certification)
+         and (historicallyDependsOn exactly 1 EvaluationReport)
+    
+    
+Class: CertificationBody
+
+        
+    SubClassOf: 
+        IntermediaryParticipant,
+        emitsCertificate some Certificate,
+        mediates some CertificationAct
+    
+    
+Class: ConditionalClaim
+
+        
+    SubClassOf: 
+        IntrinsicMode,
+        (inheresIn only DataCustomer) and (externallyDependsOn only DataSupplier) and (historicallyDependsOn only MetadataRetrival),
+        historicallyDependsOn min 1 MetadataRetrival,
+        inheresIn exactly 1 DataCustomer,
+        externallyDependsOn exactly 1 DataSupplier
+    
+    
+Class: ConditionalCommitment
+    
+    SubClassOf: 
+        IntrinsicMode,
+        (inheresIn only DataSupplier) and (externallyDependsOn only DataCustomer) and (historicallyDependsOn only MetadataAssignment),
+       	historicallyDependsOn some MetadataAssignment,
+        inheresIn exactly 1 DataSupplier,
+        externallyDependsOn exactly 1 DataCustomer
+    
+    
 Class: Connector
 
         
@@ -65,6 +148,9 @@ Class: DataCustomer
         mediates some EconomicOffering,
         mediates some InvokeDataOperation,
         mediates some MetadataRetrival
+    
+    DisjointWith: 
+        DataSupplier
     
     
 Class: DataExchange

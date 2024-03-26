@@ -3,6 +3,8 @@
 #include <iostream>
 using std::cout;
 
+int isClass = 0;
+
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
@@ -23,10 +25,10 @@ classes: classPri classes
 
 
 // Classe Primitiva
-classPri: class subClassOf { cout << "Classe Primitiva válida\n"; }
-		| class subClassOf disjointClasses { cout << "Classe Primitiva válida\n"; }
-		| class subClassOf individuals { cout << "Classe Primitiva válida\n"; }
-		| class subClassOf disjointClasses individuals { cout << "Classe Primitiva válida\n"; }
+classPri: class subClassOf
+		| class subClassOf disjointClasses
+		| class subClassOf individuals
+		| class subClassOf disjointClasses individuals
 	 	;
 
 // Classe Definida/Aninhada
@@ -35,19 +37,19 @@ classDefAnin: class equivalentTo individuals
 			;
 
 // Classe com Axioma Fechado
-classAxi: class subClassOf_Axi { cout << "Classe com Axioma válida\n"; }
+classAxi: class subClassOf_Axi
 		;
 	
 // Classe Enumerada
-classEnum: class equivalentToEnum { cout << "Classe Enumerada válida\n"; }
+classEnum: class equivalentToEnum
 		 ;
 
 // Classe Coberta
-classCober: class equivalentToCober { cout << "Classe Coberta válida\n"; }
+classCober: class equivalentToCober
 		  ;
 
 // Define uma Class: Pizza
-class: CLASS IDCLASS
+class: CLASS IDCLASS { isClass = 1; }
 	 ;
 
 // SubClassOf para requisitos gerais
@@ -57,19 +59,25 @@ subClassOf: SUBCLASSOF subClass_list
 // Diferentes formas que uma subClassOf geral pode se organizar
 subClass_list: propertie RESERVED_WORD IDCLASS RELOP subClass_list
              | propertie RESERVED_WORD DATA_TYPE RELOP subClass_list
-						 |propertie RESERVED_WORD NUM RELOP IDCLASS subClass_list
-						 |propertie RESERVED_WORD NUM IDCLASS
-						 |propertie RESERVED_WORD NUM IDCLASS RELOP subClass_list
-						 |propertie propertie RESERVED_WORD NUM IDCLASS
-						 |propertie propertie RESERVED_WORD NUM IDCLASS RELOP subClass_list
+			 | propertie RESERVED_WORD NUM RELOP IDCLASS subClass_list
+			 | propertie RESERVED_WORD NUM IDCLASS
+			 | propertie RESERVED_WORD NUM IDCLASS RELOP subClass_list
+			 | propertie propertie RESERVED_WORD NUM IDCLASS
+			 | propertie propertie RESERVED_WORD NUM IDCLASS RELOP subClass_list
              | propertie RESERVED_WORD IDCLASS
-						 |propertie RESERVED_WORD IDCLASS RELOP subClass_list
-						 | propertie propertie RESERVED_WORD IDCLASS
-						 |propertie propertie RESERVED_WORD IDCLASS RELOP subClass_list
+			 | propertie RESERVED_WORD IDCLASS RELOP subClass_list
+			 | propertie propertie RESERVED_WORD IDCLASS
+			 | propertie propertie RESERVED_WORD IDCLASS RELOP subClass_list
              | propertie RESERVED_WORD DATA_TYPE
-						 | IDCLASS RELOP subClass_list
-						 | IDCLASS
+			 | IDCLASS RELOP subClass_list
+			 | IDCLASS RELOP subClass_list2 subClass_list
+			 | IDCLASS
              ;
+
+subClass_list2: RELOP propertie RESERVED_WORD IDCLASS RELOP
+			  | RELOP propertie RESERVED_WORD IDCLASS RELOP RELOP
+			  | RELOP propertie RESERVED_WORD IDCLASS RELOP RESERVED_WORD subClass_list2
+			  ;
 
 // SubClassOf especifica para determinar uma classe com axioma fechado
 subClassOf_Axi: SUBCLASSOF subClass_AxiList
@@ -81,20 +89,22 @@ subClass_AxiList: IDCLASS RELOP propertie RESERVED_WORD IDCLASS RELOP propertie 
 				;
 
 // EquivalentTo para requisitos gerais
-equivalentTo: equivalent IDCLASS RELOP { cout << "Classe Definida válida\n"; }
-			| equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP { cout << "Classe Definida válida\n"; }
-			| equivalent descAnin { cout << "Classe Aninhada válida\n"; }
+equivalentTo: equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP
+			| equivalent descAnin
 			;
 
-equivalent: EQUIVALENTTO IDCLASS RESERVED_WORD RELOP PROPERTIE_HAS RESERVED_WORD
+equivalent: EQUIVALENTTO IDCLASS RESERVED_WORD RELOP propertie RESERVED_WORD
 		  ;
 
 descAnin: RELOP propertie RESERVED_WORD IDCLASS RELOP RELOP descAnin2
+		| IDCLASS RELOP descAnin2
 		;
 
 descAnin2: RESERVED_WORD RELOP propertie RESERVED_WORD RELOP propertie RESERVED_WORD IDCLASS RELOP RELOP descAnin2
-			| RESERVED_WORD RELOP propertie RESERVED_WORD RELOP cober_list RELOP descAnin2
+		 | RESERVED_WORD RELOP propertie RESERVED_WORD RELOP cober_list RELOP RELOP descAnin2
 		 | RESERVED_WORD RELOP propertie RESERVED_WORD NUM IDCLASS RELOP descAnin2
+		 | RESERVED_WORD RELOP propertie RESERVED_WORD IDCLASS RELOP descAnin2
+		 |
 		 ;
 
 // EquivalentTo especifico para determinar uma classe coberta
@@ -170,6 +180,10 @@ void yyerror(const char * s)
 	extern int yylineno;    
 	extern char * yytext;   
 
-	/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
-    cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+	if(isClass == 1) {
+		/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
+    	cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+		isClass = 2;
+	}
+	yyparse();
 }
