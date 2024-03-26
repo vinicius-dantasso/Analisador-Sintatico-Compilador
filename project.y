@@ -54,6 +54,7 @@ class: CLASS IDCLASS { isClass = 1; }
 
 // SubClassOf para requisitos gerais
 subClassOf: SUBCLASSOF subClass_list
+					| SUBCLASSOF IDCLASS
           ;
 
 // Diferentes formas que uma subClassOf geral pode se organizar
@@ -71,8 +72,11 @@ subClass_list: propertie RESERVED_WORD IDCLASS RELOP subClass_list
              | propertie RESERVED_WORD DATA_TYPE
 			 | IDCLASS RELOP subClass_list
 			 | IDCLASS RELOP subClass_list2 subClass_list
-			 | IDCLASS
+			 | IDCLASS RELOP composedBySubClass subClass_list
              ;
+composedBySubClass: RELOP propertie RESERVED_WORD NUM IDCLASS RELOP RELOP
+									|	RELOP propertie RESERVED_WORD NUM IDCLASS RELOP RESERVED_WORD composedBySubClass
+									;
 
 subClass_list2: RELOP propertie RESERVED_WORD IDCLASS RELOP
 			  | RELOP propertie RESERVED_WORD IDCLASS RELOP RELOP
