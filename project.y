@@ -1,9 +1,11 @@
 %{
 /* analisador sintático para reconhecer frases em português */
 #include <iostream>
+#include <cstring>
 using std::cout;
-
+char vet[200];
 int isClass = 0;
+extern char * yytext; 
 
 int yylex(void);
 int yyparse(void);
@@ -15,11 +17,11 @@ void yyerror(const char *);
 
 %%
 
-classes: classPri classes 		
-	   | classDefAnin classes 
-	   | classAxi classes 		
-	   | classEnum classes 		
-       | classCober classes 	
+classes: classPri classes 	{std::cout << "Classe primitiva válida"}	
+	   | classDefAnin classes
+	   | classAxi classes 		{std::cout << "Classe com axioma de fechamento válida"}
+	   | classEnum classes 		{std::cout << "Classe enumerada válida"}
+       | classCober classes 	{std::cout << "Classe coberta válida"}
 	   | 
 	   ;
 
@@ -49,7 +51,7 @@ classCober: class equivalentToCober
 		  ;
 
 // Define uma Class: Pizza
-class: CLASS IDCLASS { isClass = 1; }
+class: CLASS IDCLASS { isClass = 1; strcpy(vet,yytext); }
 	 ;
 
 // SubClassOf para requisitos gerais
@@ -190,11 +192,11 @@ void yyerror(const char * s)
 {
 	/* variáveis definidas no analisador léxico */
 	extern int yylineno;    
-	extern char * yytext;   
+  
 
 	if(isClass == 1) {
 		/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
-    	cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    	cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ") Na classe " << vet << "\n";
 		isClass = 2;
 	}
 	yyparse();

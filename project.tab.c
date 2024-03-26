@@ -71,15 +71,17 @@
 
 /* analisador sintático para reconhecer frases em português */
 #include <iostream>
+#include <cstring>
 using std::cout;
-
+char vet[200];
 int isClass = 0;
+extern char * yytext; 
 
 int yylex(void);
 int yyparse(void);
 void yyerror(const char *);
 
-#line 83 "project.tab.c"
+#line 85 "project.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -538,14 +540,14 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    18,    18,    19,    20,    21,    22,    23,    28,    29,
-      30,    31,    35,    36,    40,    44,    48,    52,    56,    57,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,    70,
-      71,    72,    73,    74,    75,    77,    78,    81,    82,    83,
-      87,    91,    92,    96,    97,   100,   101,   102,   105,   106,
-     107,   108,   109,   112,   113,   114,   115,   116,   117,   118,
-     119,   123,   127,   128,   132,   136,   137,   141,   145,   146,
-     150,   154,   155,   159,   160,   161
+       0,    20,    20,    21,    22,    23,    24,    25,    30,    31,
+      32,    33,    37,    38,    42,    46,    50,    54,    58,    59,
+      63,    64,    65,    66,    67,    68,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    79,    80,    83,    84,    85,
+      89,    93,    94,    98,    99,   102,   103,   104,   107,   108,
+     109,   110,   111,   114,   115,   116,   117,   118,   119,   120,
+     121,   125,   129,   130,   134,   138,   139,   143,   147,   148,
+     152,   156,   157,   161,   162,   163
 };
 #endif
 
@@ -1224,13 +1226,13 @@ yyreduce:
   switch (yyn)
     {
   case 17: /* class: CLASS IDCLASS  */
-#line 52 "project.y"
-                     { isClass = 1; }
-#line 1230 "project.tab.c"
+#line 54 "project.y"
+                     { isClass = 1; strcpy(vet,yytext); }
+#line 1232 "project.tab.c"
     break;
 
 
-#line 1234 "project.tab.c"
+#line 1236 "project.tab.c"
 
       default: break;
     }
@@ -1423,7 +1425,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 164 "project.y"
+#line 166 "project.y"
 
 
 /* definido pelo analisador léxico */
@@ -1453,11 +1455,11 @@ void yyerror(const char * s)
 {
 	/* variáveis definidas no analisador léxico */
 	extern int yylineno;    
-	extern char * yytext;   
+  
 
 	if(isClass == 1) {
 		/* mensagem de erro exibe o símbolo que causou erro e o número da linha */
-    	cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ")\n";
+    	cout << "Erro sintático: símbolo \"" << yytext << "\" (linha " << yylineno << ") Na classe " << vet << "\n";
 		isClass = 2;
 	}
 	yyparse();
