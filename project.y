@@ -57,8 +57,18 @@ subClassOf: SUBCLASSOF subClass_list
 // Diferentes formas que uma subClassOf geral pode se organizar
 subClass_list: propertie RESERVED_WORD IDCLASS RELOP subClass_list
              | propertie RESERVED_WORD DATA_TYPE RELOP subClass_list
+						 |propertie RESERVED_WORD NUM RELOP IDCLASS subClass_list
+						 |propertie RESERVED_WORD NUM IDCLASS
+						 |propertie RESERVED_WORD NUM IDCLASS RELOP subClass_list
+						 |propertie propertie RESERVED_WORD NUM IDCLASS
+						 |propertie propertie RESERVED_WORD NUM IDCLASS RELOP subClass_list
              | propertie RESERVED_WORD IDCLASS
+						 |propertie RESERVED_WORD IDCLASS RELOP subClass_list
+						 | propertie propertie RESERVED_WORD IDCLASS
+						 |propertie propertie RESERVED_WORD IDCLASS RELOP subClass_list
              | propertie RESERVED_WORD DATA_TYPE
+						 | IDCLASS RELOP subClass_list
+						 | IDCLASS
              ;
 
 // SubClassOf especifica para determinar uma classe com axioma fechado
@@ -79,11 +89,12 @@ equivalentTo: equivalent IDCLASS RELOP { cout << "Classe Definida válida\n"; }
 equivalent: EQUIVALENTTO IDCLASS RESERVED_WORD RELOP PROPERTIE_HAS RESERVED_WORD
 		  ;
 
-descAnin: RELOP propertie RESERVED_WORD IDINDIVIDUALS RELOP RELOP descAnin2
+descAnin: RELOP propertie RESERVED_WORD IDCLASS RELOP RELOP descAnin2
 		;
 
-descAnin2: RESERVED_WORD RELOP propertie RESERVED_WORD RELOP propertie RESERVED_WORD IDINDIVIDUALS RELOP RELOP descAnin2
-		 |
+descAnin2: RESERVED_WORD RELOP propertie RESERVED_WORD RELOP propertie RESERVED_WORD IDCLASS RELOP RELOP descAnin2
+			| RESERVED_WORD RELOP propertie RESERVED_WORD RELOP cober_list RELOP descAnin2
+		 | RESERVED_WORD RELOP propertie RESERVED_WORD NUM IDCLASS RELOP descAnin2
 		 ;
 
 // EquivalentTo especifico para determinar uma classe coberta

@@ -25,7 +25,7 @@ propHas ({has})({letter})
 propIs {is}({letterMa}({letter})){of}
 idClasse {letterMa}({letter}|{underline})*
 idIndividual {letterMa}({letter})({digito})
-propertie (({letterMi})({letterMa})({letter})|({letterMi}))
+propertie {letterMi}{letter}
 dataType {letterMi}({colon})({letter})
 
 
