@@ -1225,14 +1225,68 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 17: /* class: CLASS IDCLASS  */
-#line 54 "project.y"
-                     { isClass = 1; strcpy(vet,yytext); }
+  case 8: /* classPri: class subClassOf  */
+#line 30 "project.y"
+                           { cout << "Classe primitiva válida\n"; }
 #line 1232 "project.tab.c"
     break;
 
+  case 9: /* classPri: class subClassOf disjointClasses  */
+#line 31 "project.y"
+                                                   { cout << "Classe primitiva válida\n"; }
+#line 1238 "project.tab.c"
+    break;
 
-#line 1236 "project.tab.c"
+  case 10: /* classPri: class subClassOf individuals  */
+#line 32 "project.y"
+                                               { cout << "Classe primitiva válida\n"; }
+#line 1244 "project.tab.c"
+    break;
+
+  case 11: /* classPri: class subClassOf disjointClasses individuals  */
+#line 33 "project.y"
+                                                               { cout << "Classe primitiva válida\n"; }
+#line 1250 "project.tab.c"
+    break;
+
+  case 14: /* classAxi: class subClassOf_Axi  */
+#line 42 "project.y"
+                               { cout << "Classe com axioma de fechamento válida\n"; }
+#line 1256 "project.tab.c"
+    break;
+
+  case 15: /* classEnum: class equivalentToEnum  */
+#line 46 "project.y"
+                                  { cout << "Classe enumerada válida\n"; }
+#line 1262 "project.tab.c"
+    break;
+
+  case 16: /* classCober: class equivalentToCober  */
+#line 50 "project.y"
+                                    { cout << "Classe coberta válida\n"; }
+#line 1268 "project.tab.c"
+    break;
+
+  case 17: /* class: CLASS IDCLASS  */
+#line 54 "project.y"
+                     { isClass = 1; strcpy(vet,yytext); }
+#line 1274 "project.tab.c"
+    break;
+
+  case 43: /* equivalentTo: equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP  */
+#line 98 "project.y"
+                                                               { cout << "Classe Definida válida\n"; }
+#line 1280 "project.tab.c"
+    break;
+
+  case 44: /* equivalentTo: equivalent descAnin  */
+#line 99 "project.y"
+                                              { cout << "Classe Aninhada válida\n"; }
+#line 1286 "project.tab.c"
+    break;
+
+
+#line 1290 "project.tab.c"
 
       default: break;
     }

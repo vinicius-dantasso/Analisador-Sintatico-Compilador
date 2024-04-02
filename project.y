@@ -17,20 +17,20 @@ void yyerror(const char *);
 
 %%
 
-classes: classPri classes 	{std::cout << "Classe primitiva válida"}	
+classes: classPri classes 		
 	   | classDefAnin classes
-	   | classAxi classes 		{std::cout << "Classe com axioma de fechamento válida"}
-	   | classEnum classes 		{std::cout << "Classe enumerada válida"}
-       | classCober classes 	{std::cout << "Classe coberta válida"}
+	   | classAxi classes 		
+	   | classEnum classes 		
+       | classCober classes 	
 	   | 
 	   ;
 
 
 // Classe Primitiva
-classPri: class subClassOf
-		| class subClassOf disjointClasses
-		| class subClassOf individuals
-		| class subClassOf disjointClasses individuals
+classPri: class subClassOf { cout << "Classe primitiva válida\n"; }
+		| class subClassOf disjointClasses { cout << "Classe primitiva válida\n"; }
+		| class subClassOf individuals { cout << "Classe primitiva válida\n"; }
+		| class subClassOf disjointClasses individuals { cout << "Classe primitiva válida\n"; }
 	 	;
 
 // Classe Definida/Aninhada
@@ -39,15 +39,15 @@ classDefAnin: class equivalentTo individuals
 			;
 
 // Classe com Axioma Fechado
-classAxi: class subClassOf_Axi
+classAxi: class subClassOf_Axi { cout << "Classe com axioma de fechamento válida\n"; }
 		;
 	
 // Classe Enumerada
-classEnum: class equivalentToEnum
+classEnum: class equivalentToEnum { cout << "Classe enumerada válida\n"; }
 		 ;
 
 // Classe Coberta
-classCober: class equivalentToCober
+classCober: class equivalentToCober { cout << "Classe coberta válida\n"; }
 		  ;
 
 // Define uma Class: Pizza
@@ -95,8 +95,8 @@ subClass_AxiList: IDCLASS RELOP propertie RESERVED_WORD IDCLASS RELOP propertie 
 				;
 
 // EquivalentTo para requisitos gerais
-equivalentTo: equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP
-			| equivalent descAnin
+equivalentTo: equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP { cout << "Classe Definida válida\n"; }
+			| equivalent descAnin { cout << "Classe Aninhada válida\n"; }
 			;
 
 equivalent: EQUIVALENTTO IDCLASS RESERVED_WORD RELOP propertie RESERVED_WORD
