@@ -1249,39 +1249,39 @@ yyreduce:
 #line 1250 "project.tab.c"
     break;
 
+  case 12: /* classDefAnin: class equivalentTo individuals  */
+#line 37 "project.y"
+                                             { cout << "Classe Definida válida\n"; }
+#line 1256 "project.tab.c"
+    break;
+
   case 14: /* classAxi: class subClassOf_Axi  */
 #line 42 "project.y"
                                { cout << "Classe com axioma de fechamento válida\n"; }
-#line 1256 "project.tab.c"
+#line 1262 "project.tab.c"
     break;
 
   case 15: /* classEnum: class equivalentToEnum  */
 #line 46 "project.y"
                                   { cout << "Classe enumerada válida\n"; }
-#line 1262 "project.tab.c"
+#line 1268 "project.tab.c"
     break;
 
   case 16: /* classCober: class equivalentToCober  */
 #line 50 "project.y"
                                     { cout << "Classe coberta válida\n"; }
-#line 1268 "project.tab.c"
+#line 1274 "project.tab.c"
     break;
 
   case 17: /* class: CLASS IDCLASS  */
 #line 54 "project.y"
                      { isClass = 1; strcpy(vet,yytext); }
-#line 1274 "project.tab.c"
-    break;
-
-  case 43: /* equivalentTo: equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP  */
-#line 98 "project.y"
-                                                               { cout << "Classe Definida válida\n"; }
 #line 1280 "project.tab.c"
     break;
 
   case 44: /* equivalentTo: equivalent descAnin  */
 #line 99 "project.y"
-                                              { cout << "Classe Aninhada válida\n"; }
+                                              { cout << "Classe Definida/Aninhada válida\n"; }
 #line 1286 "project.tab.c"
     break;
 

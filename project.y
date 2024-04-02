@@ -34,7 +34,7 @@ classPri: class subClassOf { cout << "Classe primitiva válida\n"; }
 	 	;
 
 // Classe Definida/Aninhada
-classDefAnin: class equivalentTo individuals
+classDefAnin: class equivalentTo individuals { cout << "Classe Definida válida\n"; }
 			| class equivalentTo
 			;
 
@@ -95,8 +95,8 @@ subClass_AxiList: IDCLASS RELOP propertie RESERVED_WORD IDCLASS RELOP propertie 
 				;
 
 // EquivalentTo para requisitos gerais
-equivalentTo: equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP { cout << "Classe Definida válida\n"; }
-			| equivalent descAnin { cout << "Classe Aninhada válida\n"; }
+equivalentTo: equivalent DATA_TYPE RELOP RELOP NUM RELOP RELOP 
+			| equivalent descAnin { cout << "Classe Definida/Aninhada válida\n"; }
 			;
 
 equivalent: EQUIVALENTTO IDCLASS RESERVED_WORD RELOP propertie RESERVED_WORD
